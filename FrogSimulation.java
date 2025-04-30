@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class FrogSimulation {
 
     /** Distance, in inches, from the starting position to the goal. */
@@ -11,7 +13,8 @@ public class FrogSimulation {
      * reach the goal.
      * Precondition: dist > 0; numHops > 0
      */
-    public FrogSimulation(int dist, int numHops) {
+    public FrogSimulation(int dist, int numHops) 
+    {
         goalDistance = dist;
         maxHops = numHops;
     }
@@ -20,8 +23,12 @@ public class FrogSimulation {
      * Returns an integer representing the distance, in inches, to be moved when the
      * frog hops.
      */
-    private int hopDistance() {
-        /* implementation not shown */ }
+    private int hopDistance() 
+    {
+        Scanner s = new Scanner(System.in);
+        System.out.println("How far?");
+        return s.nextInt();
+    }
 
     /**
      * Simulates a frog attempting to reach the goal as described in part (a).
@@ -29,14 +36,40 @@ public class FrogSimulation {
      * simulation;
      * false otherwise.
      */
-    public boolean simulate() {
-        /* to be implemented in part (a) */ }
+    public boolean simulate() 
+    {
+        int hops = 0;
+        int distance = 0;
+        while(hops < maxHops)
+        {
+            distance += hopDistance();
+            if(distance >= goalDistance)
+            {
+                return true;
+            } else if(distance < 0)
+            {
+                return false;
+            }
+            hops++;
+        } 
+        return false;
+    }
 
     /**
      * Runs num simulations and returns the proportion of simulations in which the
      * frog successfully reached or passed the goal.
      * Precondition: num > 0
      */
-    public double runSimulations(int num) {
-        /* to be implemented in part (b) */ }
+    public double runSimulations(int num) 
+    {
+        double temp = 0.0;
+        for(int i = 0; i < num; i++)
+        {
+            if(simulate())
+            {
+                temp++;
+            }
+        }
+        return (temp/num);
+    }
 }
